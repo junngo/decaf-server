@@ -22,6 +22,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -61,6 +63,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults())
                 // Disable CSRF, HTTP Basic, and Form Login
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -76,7 +79,7 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtTokenFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class); // Add JWT token filter
 
         // If you're using the H2 console, allow using frames
-//        http.headers().frameOptions().disable();
+        http.headers().frameOptions().disable();
 
         return http.build();
     }
