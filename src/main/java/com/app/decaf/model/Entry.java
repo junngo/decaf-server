@@ -34,6 +34,10 @@ public class Entry {
     @Enumerated(EnumType.STRING)
     private EntryType type; // DEBIT or CREDIT
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category; // Associate each entry with a category
+
     @Column(nullable = false)
     private Date date;
 
