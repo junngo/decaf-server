@@ -74,7 +74,7 @@ public class SecurityConfig {
 
                 // Configure request authorization
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**", "/h2-console/**").permitAll() // Permit access without authentication
+                        .requestMatchers("/api/users/**", "/api/auth/**", "/h2-console/**").permitAll() // Permit access without authentication
                         .anyRequest().authenticated()) // All other requests need to be authenticated
                 .addFilterBefore(new JwtTokenFilter(jwtUtil, userDetailsService), UsernamePasswordAuthenticationFilter.class); // Add JWT token filter
 

@@ -28,5 +28,6 @@ public class Category {
     }
 
     @Column(nullable = false)
-    private boolean isActive = true;
+    private boolean deleted = false; // Default is false, indicating the category is active.
+
 }

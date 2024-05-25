@@ -32,12 +32,18 @@ public class User implements UserDetails {
     @Column
     private String name;
 
-    @Column
-    private String role; // Simplified role handling for demonstration
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        USER, ADMIN
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+        return Collections.singletonList(new SimpleGrantedAuthority(this.role.name()));
+//        return Collections.emptyList();
     }
 
     @Override
