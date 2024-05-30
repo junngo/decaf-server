@@ -4,17 +4,8 @@ from .models import Category, Account, Entry, Transaction
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
-        read_only_fields = ['user']
-
-    def __init__(self, *args, **kwargs):
-        super(CategorySerializer, self).__init__(*args, **kwargs)
-        request = self.context.get('request', None)
-        if request.method in ['GET', 'PUT', 'PATCH', 'POST']:
-            allowed_fields = {'id', 'name', 'type'}
-            for field_name in list(self.fields):
-                if field_name not in allowed_fields:
-                    self.fields.pop(field_name)
+        fields = ['id', 'user', 'name', 'type', 'created_at']
+        read_only_fields = ['user', 'deleted']
 
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user

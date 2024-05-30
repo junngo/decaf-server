@@ -17,6 +17,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
         # Automatically assign the logged-in user as the category's user
         serializer.save(user=self.request.user)
 
+    def destroy(self, request, *args, **kwargs):
+        """ Soft delete an account by setting the 'deleted' flag instead of actual deletion. """
+        category = self.get_object()
+        category.deleted = True
+        category.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer

@@ -4,6 +4,9 @@ from users.models import Users
 
 
 class Category(models.Model):
+    class Meta:
+        db_table = 'category'
+
     class CategoryType(models.TextChoices):
         EXPENSE = 'EXPENSE', ('Expense')
         REVENUE = 'REVENUE', ('Revenue')
@@ -20,6 +23,9 @@ class Category(models.Model):
 
 
 class Account(models.Model):
+    class Meta:
+        db_table = 'account'
+
     class AccountType(models.TextChoices):
         ASSET = 'ASSET', ('Asset')
         LIABILITY = 'LIABILITY', ('Liability')
@@ -37,6 +43,9 @@ class Account(models.Model):
 
 
 class Transaction(models.Model):
+    class Meta:
+        db_table = 'transaction'
+
     description = models.TextField(blank=True)
     date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='transactions')
@@ -49,6 +58,9 @@ class Transaction(models.Model):
 
 
 class Entry(models.Model):
+    class Meta:
+        db_table = 'entry'
+
     class EntryType(models.TextChoices):
         DEBIT = 'DEBIT', ('Debit')
         CREDIT = 'CREDIT', ('Credit')
